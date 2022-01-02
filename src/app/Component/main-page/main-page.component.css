@@ -1,0 +1,16 @@
+#container{
+    padding: 20px;
+    height: calc(100% - 50px);
+    min-height: calc(100% - 50px);
+    max-height: calc(100% - 50px);
+}
+app-each-day{
+    margin: 10px;
+}
+
+#content{
+    height: calc(100% - 180px);
+    min-height: calc(100% - 180px);
+    max-height: calc(100% - 180px);
+    overflow-y: auto;
+}

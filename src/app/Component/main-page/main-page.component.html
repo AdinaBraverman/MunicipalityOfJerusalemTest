@@ -1,0 +1,40 @@
+<div id="container" *ngIf="IBMShares">
+    <h1 style="text-align: center;">מניות IBM</h1>
+
+    <div>מיין לפי
+        <span *ngIf="direction">מהקטן לגדול</span>
+        <span *ngIf="!direction">מהגדול לקטן</span>
+    </div>
+    <button mat-stroked-button color="primary" (click)="setSortParm('open')">מחיר פתיחה</button>
+    <button mat-stroked-button color="primary" (click)="setSortParm('high')">מחיר הכי גבוה</button>
+    <button mat-stroked-button color="primary" (click)="setSortParm('low')">מחיר הכי נמוך</button>
+    <button mat-stroked-button color="primary" (click)="setSortParm('close')">מחיר סגירה</button>
+
+    
+    <input type="date" name="date" id="date" [(ngModel)]="dateFilter">
+
+    <div id="content">
+        <!-- | filterBy:dateFilter -->
+        <app-each-day *ngFor="let item of IBMShares | filterBy:dateFilter  | orderBy:params:direction  | slice: StartIndex:EndIndex"
+            [Details]="item">
+        </app-each-day>
+    </div>
+
+    <button mat-stroked-button color="primary" [disabled]="EndIndex==IBMShares.length"
+        (click)="forwardPage()">אחורה</button>
+    <button mat-stroked-button color="primary" [disabled]="StartIndex==0" (click)="backwardsPage()">קדימה</button>
+
+    <div *ngIf="bestDaysSort"> בהנחה שהמערך ממוין
+        היום הטוב לקניה {{bestDaysSort.buy| date: 'dd/MM/yyyy'}}.
+        היום הטוב למכירה {{bestDaysSort.sale| date: 'dd/MM/yyyy'}} .
+        וכך תרוויח {{bestDaysSort.diff}}
+    </div>
+
+    <div *ngIf="bestDays"> בהנחה שהמערך אינו ממוין
+        היום הטוב לקניה {{bestDays.buy| date: 'dd/MM/yyyy'}}.
+        היום הטוב למכירה {{bestDays.sale| date: 'dd/MM/yyyy'}} .
+        וכך תרוויח {{bestDays.diff}}
+    </div>
+
+    <!-- <div *ngIf="maxCloseDay && minCloseDay">היום הטוב למכירה {{maxCloseDay.date| date: 'dd/MM/yyyy'}} . היום הטוב לקניה {{minCloseDay.date| date: 'dd/MM/yyyy'}}</div> -->
+</div>
